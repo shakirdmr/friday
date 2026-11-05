@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, BookOpen, Check, ChevronRight, Compass, Flame, Lightbulb, MessageCircle, Menu, Plus, Search, SlidersHorizontal, Sparkles, Sun, Trophy, X, Zap } from "lucide-react";
 import { LoopMark } from "@/components/brand";
 import { HomeIcon, MemoriesIcon, DiscoveriesIcon, ProfileIcon } from "@/components/navigation-icons";
+import { QuickActions } from "@/components/quick-actions";
 
 const initialMemories = [
   { id: 1, title: "An idea I keep coming back to", text: "I want to build something that helps people remember what matters to them. A second brain that feels personal.", type: "Idea", date: "Today", color: "yellow" },
@@ -15,7 +16,7 @@ const initialMemories = [
 
 type Memory = typeof initialMemories[number];
 type View = "home" | "memories" | "discoveries" | "you";
-type Dialog = "capture" | "companion" | "memory" | null;
+type Dialog = "capture" | "companion" | "memory" | "quick-actions" | null;
 const navigation = [{ id: "home" as const, label: "Home", icon: HomeIcon }, { id: "memories" as const, label: "Memories", icon: MemoriesIcon }, { id: "discoveries" as const, label: "Discoveries", icon: DiscoveriesIcon }, { id: "you" as const, label: "You", icon: ProfileIcon }];
 
 function PipArtwork({ className = "" }: { className?: string }) {
@@ -84,6 +85,7 @@ export default function MemoryHome() {
     <div className={`app-shell world-app ${view === "home" ? "world-home" : ""}`}>
       <aside className="app-sidebar">
         <Link href="/" className="wordmark" aria-label="Memory landing page"><LoopMark />memory</Link>
+        <button className="sidebar-quick-add" aria-label="Open quick actions" aria-haspopup="dialog" onClick={() => openDialog("quick-actions")}><Plus size={21} strokeWidth={2.5} /> Create</button>
         <nav className="app-nav" aria-label="Main navigation">{navigation.map(({ id, label, icon: Icon }) => <button key={id} aria-current={view === id ? "page" : undefined} onClick={() => changeView(id)}><span className={`nav-icon nav-${id}`}><Icon size={42} active={view === id} /></span>{label}</button>)}</nav>
         <div className="sidebar-bottom"><span className="design-preview-label">DESIGN PREVIEW</span><p>A first look at your second brain. All activity stays in this tab.</p><Link href="/"><ArrowLeft size={14} /> Back to landing</Link></div>
       </aside>
@@ -94,7 +96,10 @@ export default function MemoryHome() {
             {view === "home" && <>
               <h1 className="sr-only">Your space, your story.</h1>
               <section className="world-scene" aria-label="Pip's room">
-                <Image className="world-room-art" src="/art/pip-room-v2.webp" alt="Pip, a happy blue memory companion, in a sunlit mint room with an orange door and a golden reading cushion" width={1254} height={1254} unoptimized preload />
+                <picture className="world-room-picture">
+                  <source media="(min-width: 701px)" srcSet="/art/pip-room-desktop-v1.webp" />
+                  <Image className="world-room-art" src="/art/pip-room-v2.webp" alt="Pip, a happy blue memory companion, in a sunlit mint room with an orange door and a golden reading cushion" width={1254} height={1254} unoptimized fetchPriority="high" />
+                </picture>
                 <div className="world-toolbar">
                   <button className="world-menu-button" aria-label={menuOpen ? "Close world menu" : "Open world menu"} aria-expanded={menuOpen} aria-controls="world-menu" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={28} /> : <Menu size={28} />}</button>
                   <div className="world-toolbar-right">
@@ -145,12 +150,12 @@ export default function MemoryHome() {
           </aside>
         </div>
       </div>
-      <nav className="bottom-nav" aria-label="Mobile navigation">{navigation.map(({ id, label, icon: Icon }) => <button key={id} aria-current={view === id ? "page" : undefined} onClick={() => changeView(id)}><Icon size={46} active={view === id} /><span>{label}</span></button>)}</nav>
-      <dialog ref={dialogRef} className={`app-dialog ${dialog === "companion" ? "companion-dialog" : ""}`} aria-labelledby="dialog-title" onCancel={(event) => { event.preventDefault(); closeDialog(); }} onClick={(event) => { if (event.target === event.currentTarget) closeDialog(); }}><div className="app-dialog-content"><button className="dialog-close" onClick={closeDialog} aria-label="Close dialog"><X size={21} /></button>
+      <nav className="bottom-nav" aria-label="Mobile navigation">{navigation.map(({ id, label, icon: Icon }, index) => <Fragment key={id}>{index === 2 && <button className="quick-add-button" aria-label="Open quick actions" aria-haspopup="dialog" onClick={() => openDialog("quick-actions")}><Plus size={25} strokeWidth={3} /></button>}<button aria-current={view === id ? "page" : undefined} onClick={() => changeView(id)}><Icon size={46} active={view === id} /><span>{label}</span></button></Fragment>)}</nav>
+      <dialog ref={dialogRef} className={`app-dialog ${dialog === "companion" ? "companion-dialog" : ""} ${dialog === "quick-actions" ? "quick-actions-dialog" : ""}`} aria-labelledby="dialog-title" onCancel={(event) => { event.preventDefault(); closeDialog(); }} onClick={(event) => { if (event.target === event.currentTarget) closeDialog(); }}>{dialog === "quick-actions" ? <QuickActions onClose={closeDialog} onCapture={() => setDialog("capture")} onGoals={() => { closeDialog(); changeView("home"); requestAnimationFrame(() => document.getElementById("today-title")?.scrollIntoView({ block: "center" })); }} /> : <div className="app-dialog-content"><button className="dialog-close" onClick={closeDialog} aria-label="Close dialog"><X size={21} /></button>
         {dialog === "capture" && <><span className="capture-symbol"><Lightbulb size={26} /></span><h2 id="dialog-title">What&apos;s on your mind?</h2><p>An idea, a moment, a thought. Give it a place.</p><form onSubmit={(event) => { event.preventDefault(); saveMemory(); }}><label className="sr-only" htmlFor="memory-draft">Your thought</label><textarea id="memory-draft" autoFocus maxLength={1500} value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="I've been thinking about…" required /><button className="button button-green" type="submit" disabled={!draft.trim()}>Keep this thought <Plus size={17} /></button></form><span className="capture-preview-note">Kept in this tab only. Nothing is uploaded.</span></>}
         {dialog === "companion" && <><div className="companion-reveal"><span className="reveal-spark reveal-spark-one">✦</span><PipArtwork /><span className="reveal-spark reveal-spark-two">✧</span></div><span className="companion-intro-label">EVERY STORY STARTS SOMEWHERE</span><h2 id="dialog-title">Hey, I&apos;m Pip.</h2><p>Your companion for the thoughts, discoveries, and moments that make you, you.</p><button className="button button-green" onClick={() => { closeDialog(); setView("home"); }}>Let&apos;s grow together <ArrowRight size={17} /></button></>}
         {dialog === "memory" && <><span className="capture-symbol yellow-capture"><BookOpen size={25} /></span><span className="read-meta">{selectedMemory.type} · {selectedMemory.date}</span><h2 id="dialog-title">{selectedMemory.title}</h2><p className="read-memory-text">{selectedMemory.text}</p><span className="read-saved"><Check size={15} /> A piece of your story.</span><button className="button button-outline" onClick={closeDialog}>Back to my world</button></>}
-      </div></dialog>
+      </div>}</dialog>
     </div>
   );
 }

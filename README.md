@@ -41,10 +41,11 @@ After deployment, `/` opens the landing page and `/home` opens the app preview d
 - An immersive teal after-login home with generated room artwork, a matching Pip character, chapter energy, large memory cards, and illustrated mobile navigation. Desktop navigation remains in the sidebar.
 - Memories, sample discoveries, and an illustrative persona. The example chapter starts with 10 sample energy; each daily prompt adds 10.
 - Local-only capture, search, daily progress, and companion introduction interactions. Added memories stay in React state and reset on refresh.
+- A centered mobile + button opens a dark quick-actions screen inspired by the supplied reference. Reflections and the capture shortcut open the local capture form; Goals returns to today's moments. Other categories show activity previews, with comforting-thought and kindness prompts linked to capture. The menu supports Escape, keyboard focus, and small-screen scrolling.
 - Illustrative content is marked as sample data. There is no backend, real authentication, analytics, or connected AI.
 
 Memory is a working name. Copy, colors, and the companion are an initial design direction.
 
 ## Artwork
 
-The generated room and transparent Pip character are stored in `public/art/`. The app uses compact WebP encodings. Exact prompts and generation provenance are documented in [design/room-art.md](design/room-art.md).
+The generated room and transparent Pip character are stored in `public/art/`. The app uses compact WebP encodings. Desktop selects a separate landscape room that extends sideways while preserving the original UI dimensions; mobile keeps the square artwork. Exact prompts and generation provenance are documented in [design/room-art.md](design/room-art.md) and [design/desktop-room-art.md](design/desktop-room-art.md).

@@ -4,7 +4,7 @@
     <linearGradient id="roof" x1="26" y1="7" x2="43" y2="35" gradientUnits="userSpaceOnUse"><stop stop-color="#FFAF65"/><stop offset="1" stop-color="#EF7843"/></linearGradient>
     <linearGradient id="door" x1="28" y1="40" x2="43" y2="62" gradientUnits="userSpaceOnUse"><stop stop-color="#52C7BE"/><stop offset="1" stop-color="#209C9A"/></linearGradient>
   </defs>
-  <path d="M18 62h36a4 4 0 0 0 4-4V35l3 2c5 3 9-4 5-7L57 22V13a3 3 0 0 0-3-3h-5a3 3 0 0 0-3 3v1l-6-6a6 6 0 0 0-8 0L6 30c-4 3 0 10 5 7l3-2v23a4 4 0 0 0 4 4Z" fill="#E3A044" stroke="#FFFDF6" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M18 62h36a4 4 0 0 0 4-4V35l3 2c5 3 9-4 5-7L57 22V13a3 3 0 0 0-3-3h-5a3 3 0 0 0-3 3v1l-6-6a6 6 0 0 0-8 0L6 30c-4 3 0 10 5 7l3-2v23a4 4 0 0 0 4 4Z" fill="#E3A044" stroke="#EFF8F2" stroke-opacity=".35" stroke-width="2" stroke-linejoin="round"/>
   <rect x="47" y="11" width="9" height="19" rx="2" fill="#C9663E"/>
   <path d="M16 31 36 14l20 17v26a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V31Z" fill="url(#wall)"/>
   <path d="M50 28h6v29a4 4 0 0 1-4 4h-2V28Z" fill="#ECA848"/>

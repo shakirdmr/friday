@@ -3,7 +3,7 @@
     <linearGradient id="fur" x1="22" y1="15" x2="45" y2="65" gradientUnits="userSpaceOnUse"><stop stop-color="#ABE7F5"/><stop offset=".55" stop-color="#7CCBEA"/><stop offset="1" stop-color="#59ABD5"/></linearGradient>
     <linearGradient id="leaf" x1="46" y1="10" x2="58" y2="19" gradientUnits="userSpaceOnUse"><stop stop-color="#FFE18A"/><stop offset="1" stop-color="#EDB443"/></linearGradient>
   </defs>
-  <path d="M13 30C2 19 12 7 23 14c7-4 17-4 24 0 4-7 12-9 17-8 1 5-1 10-5 13 4 3 5 8 1 13 5 6 7 13 5 19-2 11-13 17-29 17S9 62 7 51c-2-8 1-16 6-21Z" fill="#69B9DF" stroke="#FFFDF6" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M13 30C2 19 12 7 23 14c7-4 17-4 24 0 4-7 12-9 17-8 1 5-1 10-5 13 4 3 5 8 1 13 5 6 7 13 5 19-2 11-13 17-29 17S9 62 7 51c-2-8 1-16 6-21Z" fill="#69B9DF" stroke="#EFF8F2" stroke-opacity=".35" stroke-width="2" stroke-linejoin="round"/>
   <circle cx="16" cy="23" r="10" fill="#78C5E5"/>
   <circle cx="16" cy="23" r="5.5" fill="#BDE8F1"/>
   <circle cx="56" cy="23" r="10" fill="#78C5E5"/>

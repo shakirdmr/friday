@@ -94,7 +94,7 @@ svg { flex-shrink: 0; }
 .app-nav > button[aria-current="page"] { background: #eaf7ff; border-color: #a8dff5; color: #289bd0; }
 .nav-icon { display: flex; align-items: center; justify-content: center; width: 35px; height: 37px; }
 .illustrated-nav-icon { display: block; flex-shrink: 0; object-fit: contain; transition: transform .18s; }
-.illustrated-nav-icon.icon-active { transform: translateY(-2px); }
+.illustrated-nav-icon.icon-active { transform: translateY(-1px); }
 .nav-home { color: #edb441; }.nav-memories { color: #6ab1d5; }.nav-discoveries { color: #8bbd59; }.nav-you { color: #be9cd5; }
 .sidebar-bottom { margin-top: auto; padding: 24px 12px 0; }
 .design-preview-label { font-size: 8px; letter-spacing: 1.2px; font-weight: 700; color: #b2b2b2; }
@@ -205,7 +205,7 @@ svg { flex-shrink: 0; }
 /* Immersive companion world: the room and daily moments share one canvas. */
 .world-app .nav-icon { width: 42px; height: 43px; }
 .world-app .app-nav > button { min-height: 65px; gap: 12px; }
-.world-app .illustrated-nav-icon { filter: drop-shadow(0 2px 1px #215d6026); }
+.world-app .illustrated-nav-icon { filter: drop-shadow(0 1px .5px #215d6014); }
 .world-home .app-body { background: #43c3c0; min-height: 100svh; padding: 0 32px 115px; }
 .world-home .app-topbar { display: none; }
 .world-home .dashboard-layout { display: block; width: min(100%, 590px); padding: 0; }
@@ -265,7 +265,9 @@ svg { flex-shrink: 0; }
 .world-home .app-preview-note { padding-top: 5px; color: #dcfbf5a8; font-size: 8px; }
 .world-app .bottom-nav { display: none; position: fixed; bottom: 0; right: 0; left: 224px; height: calc(96px + env(safe-area-inset-bottom)); padding: 8px max(14px, calc((100% - 920px) / 2)) calc(8px + env(safe-area-inset-bottom)); background: #65cfcb; border-top: 2px solid #a2e8df99; justify-content: center; align-items: stretch; gap: 26px; z-index: 30; }
 .world-app .bottom-nav > button { width: 91px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; border-radius: 16px; gap: 3px; color: #fff; border: 2px solid transparent; font-family: var(--round); font-size: 12px; font-weight: 900; transition: background .18s, border-color .18s; }
-.world-app .bottom-nav > button[aria-current="page"] { background: rgb(255 255 255 / 50%); border-color: transparent; color: #fff; box-shadow: none; }
+.world-app .bottom-nav > button[aria-current="page"] { position: relative; isolation: isolate; background: transparent; border-color: transparent; color: #fff; box-shadow: none; }
+.world-app .bottom-nav > button[aria-current="page"]::before { content: ""; position: absolute; inset: 4px 6px; border-radius: 9px; background: rgb(255 255 255 / 50%); z-index: -1; }
+.world-app .bottom-nav > button[aria-current="page"]:hover { background: transparent; }
 .world-app .app-body { padding-bottom: 45px; }
 @media (min-width: 1201px) { .world-home .dashboard-layout { width: min(100%, 630px); }.world-scene { margin-inline: -14px; }.world-room-art { aspect-ratio: 1.14; } }
 @media (max-width: 1200px) { .world-app .bottom-nav { left: 190px; }.world-app .app-nav > button { gap: 10px; font-size: 10px; }.world-app .nav-icon { width: 38px; }.world-app .app-nav .illustrated-nav-icon { width: 38px; height: 38px; } }

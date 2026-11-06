@@ -46,6 +46,12 @@ After deployment, `/` opens the landing page and `/home` opens the app preview d
 
 Memory is a working name. Copy, colors, and the companion are an initial design direction.
 
+## Reference screens
+
+Open Memories → **Explore your world** for five connected screen previews: focus areas (`/focus`), activities (`/activities`), wardrobe (`/wardrobe`), the feature announcement (`/feature`), and micropet hatching (`/hatch`). The screens include return navigation to Memories. Activities include a working local timer and reflection form; the wardrobe supports filters, favorites, outfit and color changes. The announcement supports swiping, and the hatching moment can be replayed.
+
+These screens use local state only. Audio, purchases, accounts, and long-term storage are not connected. Artwork sources and exact generation prompts are in [design/reference-screens.md](design/reference-screens.md).
+
 ## Artwork
 
 The generated room and transparent Pip character are stored in `public/art/`. The app uses compact WebP encodings. Desktop selects a separate landscape room that extends sideways while preserving the original UI dimensions; mobile keeps the square artwork. Exact prompts and generation provenance are documented in [design/room-art.md](design/room-art.md) and [design/desktop-room-art.md](design/desktop-room-art.md).

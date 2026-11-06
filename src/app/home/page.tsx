@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, BookOpen, Check, ChevronRight, Compass, Flame, L
 import { LoopMark } from "@/components/brand";
 import { HomeIcon, MemoriesIcon, DiscoveriesIcon, ProfileIcon } from "@/components/navigation-icons";
 import { QuickActions } from "@/components/quick-actions";
+import { ReferencePreviews } from "@/components/reference-previews";
 
 const initialMemories = [
   { id: 1, title: "An idea I keep coming back to", text: "I want to build something that helps people remember what matters to them. A second brain that feels personal.", type: "Idea", date: "Today", color: "yellow" },
@@ -37,6 +38,11 @@ export default function MemoryHome() {
   const triggerRef = useRef<HTMLElement | null>(null);
   const completed = Number(captured) + Number(rediscovered);
   const chapterEnergy = 10 + completed * 10;
+
+  useEffect(() => {
+    const requested = window.location.hash.slice(1);
+    if (requested === "memories" || requested === "discoveries" || requested === "you") setView(requested);
+  }, []);
 
   useEffect(() => {
     const element = dialogRef.current;
@@ -127,7 +133,7 @@ export default function MemoryHome() {
 
             {view === "memories" && <>
               <div className="page-heading"><div><span className="section-kicker">THE PIECES OF YOUR WORLD</span><h1>Your memories.</h1></div><button className="square-add" onClick={() => openDialog("capture")} aria-label="Add a memory"><Plus size={22} /></button></div>
-              <p className="view-description">Thoughts, ideas, and moments. All part of your story.</p><label className="memory-search"><Search size={18} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Find a thought, idea, or moment" aria-label="Search memories" /></label>
+              <p className="view-description">Thoughts, ideas, and moments. All part of your story.</p><ReferencePreviews /><label className="memory-search"><Search size={18} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Find a thought, idea, or moment" aria-label="Search memories" /></label>
               <div className="memory-grid">{filtered.map((memory) => <button key={memory.id} className={`saved-memory ${memory.color}-memory`} onClick={() => readMemory(memory)}><div><span>{memory.type}</span><span>{memory.date}</span></div><Lightbulb size={24} /><h2>{memory.title}</h2><p>{memory.text}</p><span className="read-memory">Revisit memory <ArrowRight size={14} /></span></button>)}</div>{filtered.length === 0 && <p className="empty-search">No memories match that search. Try a different word.</p>}
             </>}
 
